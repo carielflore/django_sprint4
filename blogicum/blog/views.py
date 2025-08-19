@@ -1,7 +1,13 @@
 from .models import Post, Category, Comment
 from django.conf import settings
 from django.core.paginator import Paginator
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, render
 from .utils import get_published_posts
