@@ -1,6 +1,5 @@
 from blog.models import Post, Comment
 from django import forms
-from django.utils import timezone
 
 
 class PostForm(forms.ModelForm):
@@ -13,13 +12,13 @@ class PostForm(forms.ModelForm):
             })
         }
 
-    def clean_pub_date(self):
-        pub_date = self.cleaned_data['pub_date']
-        if pub_date < timezone.now():
-            raise forms.ValidationError(
-                'Дата публикации не может быть в прошлом.'
-            )
-        return pub_date
+    def save(self, commit=True, author=None):
+        instance = super().save(commit=False)
+        if author:
+            instance.author = author
+        if commit:
+            instance.save()
+        return instance
 
 
 class CommentForm(forms.ModelForm):
